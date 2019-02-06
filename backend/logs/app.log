@@ -1,3 +1,0 @@
-{"message":"::1 - - [04/Feb/2019:10:28:54 +0000] \"GET / HTTP/1.1\" 200 170 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36\"\n","level":"info"}
-{"message":"::1 - - [04/Feb/2019:10:28:54 +0000] \"GET /stylesheets/style.css HTTP/1.1\" 200 111 \"http://localhost:3000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36\"\n","level":"info"}
-{"message":"::1 - - [04/Feb/2019:10:28:54 +0000] \"GET /favicon.ico HTTP/1.1\" 404 1072 \"http://localhost:3000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36\"\n","level":"info"}
