@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var User = sequelize.define('users', {
+  var User = sequelize.define('Users', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -17,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     });
 
 
-  // User.associate =  (models) => {
-  //   models.User.hasMany(models.Service);
-  // };
+  User.associate =  (models) => {
+    models.Users.hasMany(models.Services);
+  };
 
   return User;
 };

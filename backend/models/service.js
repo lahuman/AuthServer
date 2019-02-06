@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    var Service = sequelize.define('services', {
+    var Service = sequelize.define('Services', {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: "CASCADE",
             allowNull: false,
             references: {
-              model: 'User',
+              model: 'Users',
               key: 'id'
             }
           }
@@ -24,14 +24,14 @@ module.exports = (sequelize, DataTypes) => {
             paranoid: true
         });
 
-    // Service.associate =  (models) => {
-    //     models.Service.belongsTo(models.User, {
-    //         onDelete: "CASCADE",
-    //         foreignKey: {
-    //             allowNull: false
-    //         }
-    //     });
-    // };
+    Service.associate =  (models) => {
+        models.Services.belongsTo(models.Users, {
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: false
+            }
+        });
+    };
 
     return Service;
 };
