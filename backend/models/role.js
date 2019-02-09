@@ -1,12 +1,12 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    var Service = sequelize.define('Services', {
+    var Roles = sequelize.define('Roles', {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        servie_name: { type: DataTypes.STRING, allowNull: false },
+        role_name: { type: DataTypes.STRING, allowNull: false },
         description: { type: DataTypes.TEXT, allowNull: true },
         user_id: {
             type: DataTypes.INTEGER,
@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
             paranoid: true
         });
 
-    Service.associate =  (models) => {
-        models.Services.belongsTo(models.Users, {
+        Roles.associate =  (models) => {
+        models.Roles.belongsTo(models.Users, {
             onDelete: "CASCADE",
             foreignKey: {
                 allowNull: false
@@ -33,5 +33,5 @@ module.exports = (sequelize, DataTypes) => {
         });
     };
 
-    return Service;
+    return Roles;
 };
