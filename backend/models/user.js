@@ -10,15 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     password: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.TEXT, allowNull: true }
   }, {
-      freezeTableName: true,
-      underscored: true,
-      timestamps: true,
-      paranoid: true
-    });
+    freezeTableName: true,
+    underscored: true,
+    timestamps: true,
+    paranoid: true
+  });
 
 
   User.associate =  (models) => {
-    models.Users.hasMany(models.Roles);
+    models.Users.belongsToMany(models.Roles, {through: 'UserRoles', foreignKey: 'u_id'});
   };
 
   return User;

@@ -32,4 +32,5 @@ router.put('/:user_id', (req, res) => {
       res.redirect('/');
     });
 });
+
 module.exports = router;

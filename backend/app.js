@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 
 const winston = require('./config/winston');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+
 
 const app = express();
 
@@ -29,7 +29,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
