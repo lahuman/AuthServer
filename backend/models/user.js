@@ -1,4 +1,4 @@
-'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define('Users', {
     id: {
@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    user_id: { type: DataTypes.STRING, allowNull: false, unique: true },
-    password: { type: DataTypes.STRING, allowNull: false },
-    description: { type: DataTypes.TEXT, allowNull: true }
+    user_id: { type: DataTypes.STRING(50), allowNull: false, unique: true },
+    password: { type: DataTypes.STRING(100), allowNull: false },
+    description: { type: DataTypes.STRING(1000), allowNull: true }
   }, {
     freezeTableName: true,
     underscored: true,
@@ -17,10 +17,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
 
-  User.associate =  (models) => {
-    models.Users.belongsToMany(models.Roles, {through: 'UserRoles', foreignKey: 'u_id'});
+  User.associate = (models) => {
+    models.Users.belongsToMany(models.Roles, { through: 'UserRoles', foreignKey: 'u_id' });
   };
 
   return User;
 };
-

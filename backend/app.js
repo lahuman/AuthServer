@@ -16,6 +16,9 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(require('express-session')({
+  secret: 'keyboard cat', resave: true, saveUninitialized: true, cookie: { maxAge: 60000 }
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -31,7 +31,7 @@ Object.keys(db).forEach((modelName) => {
     db[modelName].associate(db);
   }
   // RUN DDL
-  db[modelName].sync();
+  // db[modelName].sync();
 });
 
 db.sequelize = sequelize;

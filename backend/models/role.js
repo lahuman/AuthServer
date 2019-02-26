@@ -1,5 +1,4 @@
 
-
 module.exports = (sequelize, DataTypes) => {
   var Roles = sequelize.define('Roles', {
     id: {
@@ -7,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    role_name: { type: DataTypes.STRING, allowNull: false, unique: true },
-    description: { type: DataTypes.TEXT, allowNull: true }
+    role_name: { type: DataTypes.STRING(20), allowNull: false, unique: true },
+    description: { type: DataTypes.STRING(1000), allowNull: true }
   }, {
     freezeTableName: true,
     underscored: true,
@@ -17,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Roles.associate = (models) => {
-    models.Roles.belongsToMany(models.Users, {through: 'UserRoles', foreignKey: 'r_id'});
+    models.Roles.belongsToMany(models.Users, { through: 'UserRoles', foreignKey: 'r_id' });
   };
 
   return Roles;
