@@ -31,8 +31,16 @@ Object.keys(db).forEach((modelName) => {
     db[modelName].associate(db);
   }
   // RUN DDL
-  db[modelName].sync();
+  // db[modelName].sync();
 });
+
+// Sample value start
+// db.Users.create({ user_id: 'lahuman', password: '1234' });
+// db.Roles.create({ role_name: 'ROLE_TEST1' });
+// db.Roles.create({ role_name: 'ROLE_TEST2' });
+// db.UserRoles.create({ u_id: 1, r_id: 1 });
+// db.UserRoles.create({ u_id: 1, r_id: 2 });
+// Sample value end
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

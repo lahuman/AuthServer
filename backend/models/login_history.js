@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   
   
     LoginHistory.associate = (models) => {
-      models.LoginHistorys.belongsTo(models.Users, { foringkey: 'user_id', as:'Users' });
+    //   models.LoginHistorys.belongsTo(models.Users, { foringkey: 'user_id', as:'Users' });
     };
   
     return LoginHistory;

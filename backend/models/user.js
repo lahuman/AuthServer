@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = (models) => {
     models.Users.belongsToMany(models.Roles, { through: 'UserRoles', foreignKey: 'u_id' });
-    models.Users.hasMany(models.LoginHistorys, {foreignKey: 'user_id'});
+    // models.Users.hasMany(models.LoginHistorys, {foreignKey: 'user_id'});
   };
 
   return User;

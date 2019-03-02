@@ -10,14 +10,14 @@ const options = {
     json: true,
     maxsize: 5242880, // 5MB
     maxFiles: 5,
-    colorize: false,
+    colorize: false
   },
   console: {
     level: 'debug',
     handleExceptions: true,
     json: false,
-    colorize: true,
-  },
+    colorize: true
+  }
 };
 
 // instantiate a winston.createLogger with the settings defined above
@@ -26,15 +26,15 @@ var logger = winston.createLogger({
     new winston.transports.File(options.file),
     new winston.transports.Console(options.console)
   ],
-  exitOnError: false, // do not exit on handled exceptions
+  exitOnError: false // do not exit on handled exceptions
 });
 
 // create a stream object with a 'write' function that will be used by `morgan`
 logger.stream = {
-  write: function(message, encoding) {
+  write(message, encoding) {
     // use the 'info' log level so the output will be picked up by both transports (file and console)
     logger.info(message);
-  },
+  }
 };
 
 module.exports = logger;
