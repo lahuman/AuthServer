@@ -1,11 +1,14 @@
 const express = require('express');
 const moment = require('moment');
+const jwt = require('jsonwebtoken');
+
 
 const models = reqlib('/models');
 const winston = reqlib('/config/winston');
 
 const router = express.Router();
-
+const secretKey = 'lahuman';
+const roleAdmin = 'ROLE_TEST1';
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -31,11 +34,13 @@ router.post('/login', (req, res, next) => {
           if (u) {
             const userInfo = {
               user_id: u.user_id,
-              password: u.password,
               desc: u.description,
               role: u.Roles.map(r => r.role_name)
             };
-            res.json({ status: 'success', userInfo });
+            const token = jwt.sign(userInfo, secretKey, {
+              expiresIn: '5m' // 유효 시간은 5분
+            });
+            res.json({ status: 'success', token });
             loginInfo.login_success = 'Y';
           }
           else {
@@ -50,14 +55,19 @@ router.post('/login', (req, res, next) => {
 });
 
 const isAdmin = (req, res, next) => {
-  if (req.session.isAdmin) {
-    next();
+  try {
+    const decoded = jwt.verify(req.header('X-token'), secretKey);
+    if (decoded.role.includes(roleAdmin)) {
+      next();
+    }
+    else {
+      res.json({ status: 403, message: 'Login failed' });
+    }
   }
-  else {
-    res.json({ status: 403, message: 'Login failed' });
+  catch (error) {
+    res.json({ status: 500, message: `token Error: ${error.message}` });
   }
 };
-
 
 router.use('/users', isAdmin, require('./users'));
 router.use('/roles', isAdmin, require('./roles'));
