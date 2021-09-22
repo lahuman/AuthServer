@@ -4,16 +4,14 @@ require('dotenv').config();
 
 const createError = require('http-errors');
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-
 const winston = require('./config/winston');
 const indexRouter = require('./routes/index');
-
 
 // Swagger definition
 // You can set every attribute except paths and swagger
@@ -39,12 +37,24 @@ const options = {
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
 const swaggerSpec = swaggerJSDoc(options);
 
+var allowlist = ['http://localhost:8080'];
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
+
 const app = express();
+app.use(cors(corsOptionsDelegate));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(require('express-session')({
   secret: 'keyboard cat', resave: true, saveUninitialized: true, cookie: { maxAge: 60000 }
 }));

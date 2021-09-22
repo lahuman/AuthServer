@@ -7,8 +7,8 @@ const models = reqlib('/models');
 const winston = reqlib('/config/winston');
 
 const router = express.Router();
-const secretKey = 'lahuman';
-const roleAdmin = 'ROLE_TEST1';
+const secretKey = process.env.SECRET_KEY;
+const roleAdmin = process.env.ROLE_ADMIN;
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -138,16 +138,32 @@ const isAdmin = (req, res, next) => {
       next();
     }
     else {
-      res.json({ status: 403, message: 'Login failed' });
+      res.status(403);
+      res.json({ status: 403, message: 'isNot Admin Account Login failed' });
     }
   }
   catch (error) {
-    res.json({ status: 500, message: `token Error: ${error.message}` });
+    res.status(403);
+    res.json({ status: 403, message: `token Error: ${error.message}` });
   }
 };
 
-router.use('/users', isAdmin, require('./users'));
-router.use('/roles', isAdmin, require('./roles'));
+const isLogin = (req, res, next) => {
+  try {
+    const decoded = jwt.verify(req.header('X-token'), secretKey);
+    next();
+  }
+  catch (error) {
+    res.status(403);
+    res.json({ status: 403, message: `token Error: ${error.message}` });
+  }
+};
 
+router.get('/loginCheck', isLogin, (req, res, next) => {
+  res.send(jwt.verify(req.header('X-token'), secretKey));
+});
+
+router.use('/users', isAdmin, require('./users'));
+router.use('/roles', isLogin, require('./roles'));
 
 module.exports = router;
