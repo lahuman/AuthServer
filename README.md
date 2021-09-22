@@ -1,11 +1,23 @@
-# auth service
+# Auth Service
 
-> 로그인과 인증/인가를 확인 하는 서비스
+> login & user/role management example
 
-## LOGIN TEST
+## Backend/Frontend INFO
+
+- Backend : express + jwt
+- Frontend : reactjs
+
+## backend test
 
 ```
-curl -XPOST http://localhost:3000/login -d '{"user_id":"lahuman", "password":"1234"}'
+$ curl --location --request POST 'http://localhost:3000/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{"user_id":"lahuman", "password": "1234"}'
+
+
+---
+Result : 
+{"status":"success","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoibGFodW1hbiIsImRlc2MiOm51bGwsInJvbGUiOlsiUk9MRV9URVNUMSIsIlJPTEVfVEVTVDIiXSwiaWF0IjoxNjMyMzAwMDI5LCJleHAiOjE2MzIzMDAzMjl9.8UuMP_ah-xnVZhDJg1QoHtWvXLfjrSzYHlWxAtZGNRM"}
 ```
 
 ## 참고 자료

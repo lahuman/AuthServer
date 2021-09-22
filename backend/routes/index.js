@@ -94,14 +94,15 @@ router.get('/', (req, res, next) => {
  */
 router.post('/login', (req, res, next) => {
   const loginInfo = req.body;
+  console.log(loginInfo)
   if (!Object.prototype.hasOwnProperty.call(loginInfo, 'user_id')
     || !Object.prototype.hasOwnProperty.call(loginInfo, 'password')) {
-    res.statusCode(400).json({ status: 'error', message: 'Invalid Prameter' });
+    res.status(400).json({ status: 'error', message: 'Invalid Prameter' });
   }
   else {
     models.LoginHistorys.count({ where: { user_id: loginInfo.user_id, login_success: 'N', created_at: { [models.Sequelize.Op.gt]: moment().subtract(20, 'minutes').toDate() } } }).then((c) => {
       if (c > 5) {
-        res.statusCode(500).json({ status: 'error', message: 'Login failed several times. Please try again in 10 minutes.' });
+        res.status(500).json({ status: 'error', message: 'Login failed several times. Please try again in 10 minutes.' });
       }
       else {
         models.Users.findOne({
@@ -138,13 +139,11 @@ const isAdmin = (req, res, next) => {
       next();
     }
     else {
-      res.status(403);
-      res.json({ status: 403, message: 'isNot Admin Account Login failed' });
+      res.status(403).json({ status: 403, message: 'isNot Admin Account Login failed' });
     }
   }
   catch (error) {
-    res.status(403);
-    res.json({ status: 403, message: `token Error: ${error.message}` });
+    res.status(403).json({ status: 500, message: `token Error: ${error.message}` });
   }
 };
 
@@ -154,8 +153,7 @@ const isLogin = (req, res, next) => {
     next();
   }
   catch (error) {
-    res.status(403);
-    res.json({ status: 403, message: `token Error: ${error.message}` });
+    res.status(403).json({ status: 403, message: `token Error: ${error.message}` });
   }
 };
 
