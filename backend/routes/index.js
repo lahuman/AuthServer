@@ -132,6 +132,7 @@ router.post('/login', (req, res, next) => {
   }
 });
 
+
 const isAdmin = (req, res, next) => {
   try {
     const decoded = jwt.verify(req.header('X-token'), secretKey);
@@ -157,6 +158,34 @@ const isLogin = (req, res, next) => {
   }
 };
 
+
+/**
+ * @swagger
+ *  paths:
+ *    /loginCheck:
+ *      get:
+ *        tags:
+ *        - "Auth"
+ *        summary: "Login check"
+ *        description: ""
+ *        consumes:
+ *        - "application/json"
+ *        produces:
+ *        - "application/json"
+ *        responses:
+ *          200:
+ *            description: "When is Login then return User Info."
+ *            schema:
+ *              $ref: "#/definitions/Auth_response"
+ *          403:
+ *            description: "It's not login."
+ *            schema:
+ *              $ref: "#/definitions/Response_error"
+ *          500:
+ *            description: "로그인 오류 & 실패"
+ *            schema:
+ *              $ref: "#/definitions/Response_error"
+ */
 router.get('/loginCheck', isLogin, (req, res, next) => {
   res.send(jwt.verify(req.header('X-token'), secretKey));
 });

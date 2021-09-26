@@ -31,7 +31,7 @@ const options = {
   // Import swaggerDefinitions
   swaggerDefinition,
   // Path to the API docs
-  apis: ['./routes/index.js', './users/index.js', './roles/index.js']
+  apis: ['./routes/index.js', './routes/users/index.js', './routes/roles/index.js']
 };
 
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format

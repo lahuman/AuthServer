@@ -25,3 +25,5 @@ Result :
 ## 참고 자료
 
 - https://medium.com/@siddharthac6/json-web-token-jwt-the-right-way-of-implementing-with-node-js-65b8915d550e
+- https://www.javatpoint.com/how-to-make-a-navigation-bar-in-html
+- https://codepen.io/chris22smith/pen/NWWRWxJ
