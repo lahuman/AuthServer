@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import React from "react";
 
 import instance from "../../apiInstance";
@@ -19,9 +20,14 @@ export default function Main() {
     return (
         <>
             <Navi />
-            <div>
-                {user && <CustomTable title="User Info" header={Object.keys(user)} data={[Object.values(user)]} />}
-            </div>
+            <Grid
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+            >
+                MAIN PAGE
+            </Grid>
         </>
     );
 }
