@@ -1,6 +1,17 @@
 import React from 'react';
 import './Login.css';
 import axios from 'axios';
+import { Button, TextField } from '@mui/material';
+import styled from '@emotion/styled';
+
+const CustomTextField = styled.input`
+width: 100%;   
+margin: 8px 0;  
+padding: 12px 20px;   
+display: inline-block;   
+border: 2px solid black;   
+box-sizing: border-box;   
+`;
 
 function Login() {
   const [name, setName] = React.useState("");
@@ -44,12 +55,10 @@ function Login() {
       <form onSubmit={e => e.preventDefault()} ref={refForm}>
         <div className="container">
           <label>Username : </label>
-          <input type="text" ref={refName} value={name} onChange={e => setName(e.target.value)} placeholder="Enter Username" name="username" required />
+          <CustomTextField variant="standard" type="text" ref={refName} value={name} onChange={e => setName(e.target.value)} placeholder="Enter Username" name="username" required />
           <label>Password: </label>
-          <input type="password" ref={refPass} value={pass} onChange={e => setPass(e.target.value)} placeholder="Enter Password" name="password" required />
-          <button type="submit" onClick={handleSumbitForm}>Login</button>
-          <button type="button" className="cancelbtn" onClick={handleResetForm}> Cancel</button>
-          Forgot <a href="#"> password?</a>
+          <CustomTextField variant="standard" type="password" ref={refPass} value={pass} onChange={e => setPass(e.target.value)} placeholder="Enter Password" name="password" required />
+          <Button type="submit" variant="contained" onClick={handleSumbitForm}>Login</Button>
         </div>
       </form>
     </div>

@@ -1,9 +1,11 @@
 import React from "react";
-import {
-    Link
-} from "react-router-dom";
-import instance from "../../apiInstance";
-import './table.scss';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 export default function CustomTable({ title, header, data }) {
 
@@ -11,17 +13,22 @@ export default function CustomTable({ title, header, data }) {
         <>
             {title && <h1>{title}</h1>}
 
-            <table className="zigzag">
-                {header && <thead>
-                    <tr>
-                        {header.map(h => <th className="header">{h}</th>)}
-                    </tr>
-                </thead>}
-                {data && <tbody>
-                    {data.map(d => <tr>
-                        {d.map(insideData => <td>{insideData}</td>)}
-                    </tr>)}
-                </tbody>}
-            </table></>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    {header && <TableHead>
+                        <TableRow>
+                                {header.map(h => <TableCell align="center">{h}</TableCell>)}
+                        </TableRow>
+                    </TableHead>}
+                    {data && <TableBody>
+                        {data.map(d => <TableRow
+                            key={data.insideData}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            {d.map(insideData => <TableCell align="center">{insideData}</TableCell>)}
+                        </TableRow>)}
+                    </TableBody>}
+                </Table>
+            </TableContainer></>
     );
 }
