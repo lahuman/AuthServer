@@ -3,7 +3,18 @@ import {
     Link
 } from "react-router-dom";
 import instance from "../../apiInstance";
-import './navi.scss';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import styled from '@emotion/styled';
+
+const CustomLink = styled(Link)(({ theme }) => ({
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+}));
 
 export default function Navi() {
 
@@ -15,19 +26,36 @@ export default function Navi() {
     }, []);
 
 
-    return <header>
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/">Main</Link>
-                </li>
-                <li>
-                    <Link to="/user">User</Link>
-                </li>
-                <li>
-                    <Link to="/role">Role</Link>
-                </li>
-            </ul>
-        </nav>
-    </header>;
+    return <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+            <Toolbar>
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    sx={{ mr: 2 }}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Typography
+                    variant="h6"
+                    noWrap
+                    component="div"
+                    mr="10px"
+                    sx={{ display: { xs: 'none', sm: 'block' } }}
+                >
+                    <CustomLink to="/user">User</CustomLink>
+                </Typography>
+                <Typography
+                    variant="h6"
+                    noWrap
+                    component="div"
+                    sx={{ display: { xs: 'none', sm: 'block' } }}
+                >
+                    <CustomLink to="/role">Role</CustomLink>
+                </Typography>
+            </Toolbar>
+        </AppBar>
+    </Box>;
 }

@@ -58,7 +58,7 @@ function Login() {
           <CustomTextField variant="standard" type="text" ref={refName} value={name} onChange={e => setName(e.target.value)} placeholder="Enter Username" name="username" required />
           <label>Password: </label>
           <CustomTextField variant="standard" type="password" ref={refPass} value={pass} onChange={e => setPass(e.target.value)} placeholder="Enter Password" name="password" required />
-          <Button type="submit" variant="contained" onClick={handleSumbitForm}>Login</Button>
+          <Button className="loginBtn" type="submit" variant="contained" onClick={handleSumbitForm}>Login</Button>
         </div>
       </form>
     </div>
