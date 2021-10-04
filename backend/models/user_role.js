@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, DataTypes) => {
-  var UserRole = sequelize.define('UserRoles', {
+  var UserRoles = sequelize.define('UserRoles', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -17,5 +17,5 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
     timestamps: true
   });
-  return UserRole;
+  return UserRoles;
 };

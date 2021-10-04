@@ -1,5 +1,5 @@
 const express = require('express');
-
+const { Op } = require("sequelize");
 const router = express.Router();
 
 const models = reqlib('/models');
@@ -17,7 +17,7 @@ const winston = reqlib('/config/winston');
  *     type: object
  */
 
- 
+
 /**
  * @swagger
  *  paths:
@@ -94,7 +94,7 @@ router.get('/:user_id', (req, res) => {
   }).then(res.send);
 });
 
- 
+
 /**
  * @swagger
  *  paths:
@@ -129,10 +129,16 @@ router.get('/:user_id', (req, res) => {
  *            schema:
  *              $ref: "#/definitions/Response_error"
  */
-router.post('/', (req, res) => {
-  models.Users.create(req.body).then(() => {
-    res.redirect('/');
-  });
+router.post('/', async (req, res) => {
+  try {
+    const user = await models.Users.create(req.body);
+
+    await _setRoles({ u_id: user.id, myRoles: req.body.roles.split(',') });
+
+    res.json([user, null]);
+  } catch (e) {
+    res.json([null, e.message]);
+  }
 });
 
 
@@ -176,12 +182,34 @@ router.post('/', (req, res) => {
  *            schema:
  *              $ref: "#/definitions/Response_error"
  */
-router.put('/:user_id', (req, res) => {
-  models.Users.update(req.body,
-    { where: { user_id: req.params.user_id }, returning: true })
-    .then((result) => {
-      res.redirect('/');
-    });
+router.put('/:user_id', async (req, res) => {
+  try {
+    const user = await models.Users.update(req.body,
+      { where: { user_id: req.params.user_id }, returning: true });
+    const u_id = req.body.id;
+    await models.UserRoles.destroy({ where: { u_id } });
+
+    await _setRoles({ u_id, myRoles: req.body.roles.split(',') });
+
+    res.json([user, null]);
+  } catch (e) {
+    console.log(e)
+    res.json([null, e.message]);
+  }
 });
+
+
+const _setRoles = async ({ u_id, myRoles }) => {
+
+  if (myRoles) {
+    const roles = await models.Roles.findAll({
+      where: {
+        [Op.or]: myRoles.map(r => ({ role_name: r }))
+      }
+    });
+    await models.UserRoles.bulkCreate(roles.map(r => ({ u_id, r_id: r.id })));
+  }
+
+}
 
 module.exports = router;

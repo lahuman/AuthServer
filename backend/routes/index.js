@@ -116,7 +116,7 @@ router.post('/login', (req, res, next) => {
               role: u.Roles.map(r => r.role_name)
             };
             const token = jwt.sign(userInfo, secretKey, {
-              expiresIn: '5m' // 유효 시간은 5분
+              expiresIn: '1d' // 유효 시간은 1일
             });
             res.json({ status: 'success', token });
             loginInfo.login_success = 'Y';
