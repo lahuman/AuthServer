@@ -16,7 +16,6 @@ export default function RoleForm({ roleInfo = null, handleClose }) {
     const postRole = async () => {
         const data = { role_name: roleName }
         if (roleInfo) {
-            console.log(`/roles/${roleInfo[0]}`)
             await apiInstance.put(`/roles/${roleInfo[0]}`, { id: roleInfo[0], ...data });
         } else {
             await apiInstance.post('/roles', data);

@@ -25,7 +25,7 @@ export default function CustomTable({ title, header, data, onClick }) {
                             key={data.insideData}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                            {d.map(insideData => <TableCell align="center" onClick={() => onClick(d)}>{insideData}</TableCell>)}
+                            {d.map(insideData => <TableCell align="center" style={{ cursor: onClick ? 'pointer' : 'default' }} onClick={() => onClick && onClick(d)}>{insideData}</TableCell>)}
                         </TableRow>)}
                     </TableBody>}
                 </Table>
