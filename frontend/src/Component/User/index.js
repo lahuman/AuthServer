@@ -3,7 +3,7 @@ import React from 'react';
 import Navi from '../Navi';
 import CustomTable from '../CustomTable';
 import instance from "../../apiInstance";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material';
+import { Button, Dialog, Grid } from '@mui/material';
 import UserForm from './UserForm';
 
 const dateFormat = (str) => str ? new Date(str).toLocaleDateString() : '';
@@ -21,6 +21,7 @@ export default function User() {
     React.useEffect(() => {    
         getUsers();
     }, []);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -50,7 +51,7 @@ export default function User() {
             setOpen(true);
         }} />}
 
-        <Dialog open={open}>
+        <Dialog open={open}  fullWidth maxWidth="sm">
             <UserForm userInfo={user} handleClose={handleClose}/>
         </Dialog>
     </>;

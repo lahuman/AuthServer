@@ -19,7 +19,7 @@ const winston = reqlib('/config/winston');
  *     type: object
  */
 
- 
+
 /**
  * @swagger
  *  paths:
@@ -127,12 +127,9 @@ router.get('/:role_name', (req, res) => {
  *            schema:
  *              $ref: "#/definitions/Response_error"
  */
-router.post('/', (req, res) => {
-  models.Roles.create(req.body).then(() => {
-    res.redirect('/');
-  }).catch((err) => {
-    winston.error(err);
-  });
+router.post('/', async (req, res) => {
+  const roles = await models.Roles.create(req.body);
+  res.json(roles);
 });
 
 
@@ -205,7 +202,7 @@ router.post('/:id', (req, res) => {
  *        - "application/json"
  *        parameters:
  *        - in: path
- *          name: role_name
+ *          name: id
  *          schema:
  *            type: string
  *          required: true
@@ -230,11 +227,9 @@ router.post('/:id', (req, res) => {
  *            schema:
  *              $ref: "#/definitions/Response_error"
  */
-router.put('/:role_name', (req, res) => {
-  models.Roles.update(req.body,
-    { where: { role_name: req.params.role_name }, returning: true })
-    .then((result) => {
-      res.redirect('/');
-    });
+router.put('/:id', async (req, res) => {
+  const roles = await models.Roles.update(req.body,
+    { where: { id: req.params.id }, returning: true });
+  res.json(roles);
 });
 module.exports = router;
