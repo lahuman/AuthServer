@@ -1,6 +1,6 @@
 # Auth Service
 
-> login & user/role management example
+> 간단한 예제이며, 실제 업무에서 사용하기 위해서는 추가적인 작업이 필요합니다.
 
 ## DEMO
 
@@ -11,8 +11,8 @@
 
 ## Backend/Frontend INFO
 
-- Backend : express + jwt
-- Frontend : reactjs
+- Backend : express + jwt + swagger
+- Frontend : reactjs + material-ui 5.0
 
 ## backend test
 
